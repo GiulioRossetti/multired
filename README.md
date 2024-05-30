@@ -17,22 +17,73 @@
 *
  
 ----------------------
-This is multired-0.1.
+This is multired-0.2
 
-
-This is a Python implmementation of the algorithm for structural
-reduction of multi-layer networks based on the Von Neumann Entropy 
-and on the Quantum Jensen-Shannon divergence of graphs, as explained 
-in:
+This is a Python implementation of the algorithm for structural reduction of multi-layer networks based on the Von Neumann Entropy and on the Quantum Jensen-Shannon divergence of graphs, as explained in:
 
   M. De Domenico. V. Nicosia, A. Arenas, V. Latora
   "Structural reducibility of multilayer networks", 
   Nat. Commun. 6, 6864 (2015) doi:10.1038/ncomms7864
 
-If you happen to find any use of this code please do not forget to
-cite that paper ;-)
+If you happen to find any use of this code please do not forget to cite that paper ;-)
 
-My plan is to provide also a C version in the future, but I cannot 
-guarantee that I will do so anytime soon. 
+
+--------------------
+       INFO
+--------------------
+
+The package "multired" provides the class "MultiplexRed", which
+implements the algorithm to reduce a multilayer network described in
+the paper cited above. 
+
+In order to use it, you just need to 
+
+    from multired import MultiplexRed
+    m = MultiplexRed(layer_list_filename, verbose=True)
+    part = m.compute_partitions()
+    m.dump_partitions()
+    m.draw_dendrogram()
+
+where  ``layer_list_filename`` is a text file containing the list of the files describing the multiplex layers (see example in multired/sample_data/file_list)
+
+The constructor requires as its first argument the path of a file which in turn contains a list of files (one for each line) where the graph of each layer is to be  found.
+
+To run it on the sample data set provided in the folder "sample_data/", you can use the following code:
+
+    cd multired/test
+    python simple_test.py ../sample_data/file_list
+
+The class provides one set of methods which perform the exact evaluation of the Von Neumann entropy, and another set of methods (those whose name end with the suffix "_approx") which rely on a polynomial approximation of the Von Neumann entropy. By default the approximation is based on a 10th order polynomial fit of x log(x) in [0,1], but the order of the polynomial can be set through the parameter "fit_degree" of the constructor.
+
+Several sample scripts can be found in the "test/" directory. You also find a sample data set in the folder "sample_data/". 
+That is the 4-layer Noordin Top Terrorist multiplex network, originally provided in:
+
+  N. Roberts, S. F. Everton, Roberts and Everton "Terrorist
+  Data: Noordin Top Terrorist Network" (Subset) (2011).
+
+and extensively studied in:
+
+  F. Battiston, V. Nicosia, V. Latora,
+  "Structural measures for multiplex networks",
+  Phys. Rev. E 89, 032804 (2014).
+
+Please consider citing those papers if you use that data set in a
+scientific work. 
+
+--------------------
+    DEPENDENCIES
+--------------------
+
+The dependencies are listed in requirements.txt
+
+The module has been tested on a Debian GNU/Linux system, using:
+
+ - Python 3.x,  
+ - SciPy 
+ - Numpy
+ - matplotlib
+
+but it will almost surely work on other platforms and/or with other versions of those packages. 
+If you would like to report a working configuration, just email me (the address is at the beginning of this file).
 
 
