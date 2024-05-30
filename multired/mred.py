@@ -43,8 +43,9 @@ import sys
 import math
 import numpy as np
 from scipy.sparse import csr_matrix, eye
-from scipy.linalg import eigh, eig
+from scipy.linalg import eigh
 import copy
+import os
 from scipy.cluster.hierarchy import linkage, dendrogram
 
 has_matplotlib = False
@@ -219,7 +220,11 @@ class MultiplexRed(object):
         self.cuts_approx = None
         try:
             with open(multiplexfile, "r") as lines:
+
+                wkspFldr = os.path.dirname(multiplexfile)
                 for l in lines:
+                    if wkspFldr not in l:
+                        l = wkspFldr + "/" + l
                     if self.verb:
                         sys.stderr.write(
                             "Loading layer %d from file %s" % (len(self.layers), l)
