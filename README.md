@@ -48,11 +48,6 @@ where  ``layer_list_filename`` is a text file containing the list of the files d
 
 The constructor requires as its first argument the path of a file which in turn contains a list of files (one for each line) where the graph of each layer is to be  found.
 
-To run it on the sample data set provided in the folder "sample_data/", you can use the following code:
-
-    cd multired/test
-    python simple_test.py ../sample_data/file_list
-
 The class provides one set of methods which perform the exact evaluation of the Von Neumann entropy, and another set of methods (those whose name end with the suffix "_approx") which rely on a polynomial approximation of the Von Neumann entropy. By default the approximation is based on a 10th order polynomial fit of x log(x) in [0,1], but the order of the polynomial can be set through the parameter "fit_degree" of the constructor.
 
 Several sample scripts can be found in the "test/" directory. You also find a sample data set in the folder "sample_data/". 
